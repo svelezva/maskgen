@@ -24,8 +24,6 @@ def make_prediction(image):
     HEIGHT = image_arr.shape[0]
     WIDTH = image_arr.shape[1]
     image_arr = tf.image.resize(image_arr, (512, 704))
-    if image_arr.shape[2] == 1:
-        image_arr = np.concatenate([image_arr, image_arr, image_arr], axis=2)
     image_arr = np.reshape(image_arr, (1, 512, 704, 3))
 
     # prediction
@@ -62,7 +60,7 @@ uploaded_file = st.file_uploader(
 )
 if uploaded_file is not None:
     upload = uploaded_file.read()
-    image = imageio.imread(upload)
+    image = imageio.imread(upload,pilmode='RGB')
 
     if image_type == 'Original':
         st.image(upload)
